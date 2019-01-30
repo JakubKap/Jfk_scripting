@@ -34,7 +34,7 @@
     <children>
         <TextArea fx:id="inputArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="1" GridPane.rowSpan="3" />
         <TextArea fx:id="outputArea" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="5" GridPane.rowSpan="3" />
-      <TextArea blendMode="RED" editable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../Style/errOutColor.css" text="Lorem ipsum" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+      <TextArea fx:id="errOutputArea" editable="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ff0000;" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="2" />
     </children>
 
 </GridPane>
