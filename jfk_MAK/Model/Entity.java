@@ -1,4 +1,4 @@
-package src.sample;
+package jfk_MAK.Model;
 
 public class Entity {
     private String name;

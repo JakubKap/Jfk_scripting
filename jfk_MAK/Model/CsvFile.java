@@ -1,4 +1,4 @@
-package src.sample;
+package jfk_MAK.Model;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
