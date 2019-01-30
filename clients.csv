@@ -1,0 +1,5 @@
+name,surname,age,employed,married,monthSalary,numOfChildren
+Jakub,Wesołowski,25,false,false,0,0
+Anna,Markowska,45,true,true,5000,2
+Jan,Kaczmarek,50,true,false,1000,1
+Sebastian,Markowski,60,false,true,1000,5
