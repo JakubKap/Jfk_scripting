@@ -16,19 +16,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("View/mainView.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 1000, 600));
         primaryStage.show();
-
-
-        System.out.println("Jakub K");
-        CsvFile csvFile = new CsvFile();
-        List<Entity> entities = csvFile.readFromCsvFile("clients.csv");
     }
 
 
     public static void main(String[] args) {
         launch(args);
-
-
     }
 }
