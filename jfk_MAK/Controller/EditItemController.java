@@ -4,15 +4,20 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import jfk_MAK.Model.CsvFile;
 import jfk_MAK.Model.Entity;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ManualTabController implements Initializable {
-
+public class EditItemController implements Initializable {
     @FXML TextField nameTextfield;
     @FXML TextField surnameTextfield;
     @FXML Slider ageSlider;
@@ -24,10 +29,16 @@ public class ManualTabController implements Initializable {
     @FXML Label resultLabel;
     @FXML Label ageLabel;
 
-    private Entity entity;
+    private Entity chosenEntity;
+    private int entityIndex;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("jfk_MAK/View/tableTabView.fxml"));
+        TableTabController tableTab = loader.getController();
+        //chosenEntity = tableTab.getChosenEntity();
+        //entityIndex = tableTab.getEntityIndex();
+        //fillFields();
         submitButton.setOnAction(this::submit);
         ageSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -43,18 +54,26 @@ public class ManualTabController implements Initializable {
         }
     }
 
+    private void fillFields(){
+        nameTextfield.setText(chosenEntity.getName());
+        surnameTextfield.setText(chosenEntity.getSurname());
+        ageSlider.setValue(chosenEntity.getAge());
+        isEmployedCheckbox.setSelected(chosenEntity.isEmployed());
+        isMarriedCheckbox.setSelected(chosenEntity.isMarried());
+        monthSalaryTextfield.setText(""+chosenEntity.getMonthSalary());
+        numberOfChildrenTextfield.setText(""+chosenEntity.getNumOfChildren());
+    }
+
     private void passEntity(){
-        entity = new Entity(
+        CsvFile.getInstance().entities.set(entityIndex,new Entity(
                 nameTextfield.getText(),
                 surnameTextfield.getText(),
                 (int)ageSlider.getValue(),
                 isEmployedCheckbox.isSelected(),
                 isMarriedCheckbox.isSelected(),
                 Integer.parseInt(monthSalaryTextfield.getText()),
-                Integer.parseInt(numberOfChildrenTextfield.getText())
-        );
-
-        resultLabel.setStyle("-fx-text-fill: 000000;");
+                Integer.parseInt(numberOfChildrenTextfield.getText())));
+        resultLabel.setStyle("-fx-text-fill: 66ff66;");
         resultLabel.setText("Submission successful!");
     }
 

@@ -12,6 +12,8 @@ import java.util.List;
 
 public class CsvFile {
 
+    private int editIndex;
+
     private static CsvFile instance;
 
     public ObservableList<Entity> entities;
@@ -78,4 +80,12 @@ public class CsvFile {
         return entities;
     }
 
+    public void submit(Entity e){
+        if(editIndex<0){
+            entities.add(e);
+        } else {
+            entities.set(editIndex,e);
+            editIndex=-1;
+        }
+    }
 }
