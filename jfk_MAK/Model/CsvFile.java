@@ -1,6 +1,5 @@
 package jfk_MAK.Model;
 
-import com.sun.istack.internal.NotNull;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,10 +11,14 @@ import java.util.List;
 
 public class CsvFile {
 
+
+    public interface ChangeListener {
+        void onChange(ObservableList<Entity> entities);
+    }
+
     private int editIndex;
-
     private static CsvFile instance;
-
+    private ArrayList<ChangeListener> listeners;
     public ObservableList<Entity> entities;
 
     public static CsvFile getInstance(){
@@ -27,10 +30,17 @@ public class CsvFile {
 
     private CsvFile(){
         entities = FXCollections.observableArrayList();
+        listeners = new ArrayList<>();
+    }
+
+    public void addChangeListener(ChangeListener listener) {
+        listeners.add(listener);
     }
 
     public void load(String dir){
+        entities.clear();
         entities.addAll(readFromCsvFile(dir));
+        informChange();
     }
 
     private List<Entity> readFromCsvFile(String fileLocation){
@@ -77,7 +87,23 @@ public class CsvFile {
                 e.printStackTrace();
             }
         }
+
         return entities;
+    }
+
+    public void informChange() {
+        for(ChangeListener listener : listeners) {
+            listener.onChange(entities);
+        }
+    }
+
+    public void remove(int index) {
+
+        if(index >= entities.size())
+            return;
+        entities.remove(index);
+
+        informChange();
     }
 
     public void submit(Entity e){

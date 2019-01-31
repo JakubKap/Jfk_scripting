@@ -1,5 +1,6 @@
 package jfk_MAK.Controller;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -53,21 +54,12 @@ public class TableTabController implements Initializable{
         fileChooser.setTitle("Select a file to open");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
         File file = fileChooser.showOpenDialog(((Node)event.getSource()).getScene().getWindow());
-
-        CsvFile.getInstance().entities.clear();
-        entityTable.getItems().clear();
-
         CsvFile.getInstance().load(file.getPath());
-        entityTable.setItems(CsvFile.getInstance().entities);
-        entityTable.refresh();
-
-        manageVisibility();
     }
 
     private void deleteItem(ActionEvent actionEvent){
         int index = entityTable.getSelectionModel().getSelectedIndex();
-        CsvFile.getInstance().entities.remove(index);
-        manageVisibility();
+        CsvFile.getInstance().remove(index);
     }
 
     private void manageVisibility(){
@@ -99,19 +91,24 @@ public class TableTabController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        nameColumn.setCellValueFactory(new PropertyValueFactory<Entity, String>("name"));
-        surnameColumn.setCellValueFactory(new PropertyValueFactory<Entity, String>("surname"));
-        ageColumn.setCellValueFactory(new PropertyValueFactory<Entity, Integer>("age"));
-        employedColumn.setCellValueFactory(new PropertyValueFactory<Entity, Boolean>("employed"));
-        marriedColumn.setCellValueFactory(new PropertyValueFactory<Entity, Boolean>("married"));
-        salaryColumn.setCellValueFactory(new PropertyValueFactory<Entity, Integer>("monthSalary"));
-        childrenColumn.setCellValueFactory(new PropertyValueFactory<Entity, Integer>("numOfChildren"));
-
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
+        ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
+        employedColumn.setCellValueFactory(new PropertyValueFactory<>("employed"));
+        marriedColumn.setCellValueFactory(new PropertyValueFactory<>("married"));
+        salaryColumn.setCellValueFactory(new PropertyValueFactory<>("monthSalary"));
+        childrenColumn.setCellValueFactory(new PropertyValueFactory<>("numOfChildren"));
 
         loadButton.setOnAction(this::loadCsv);
         deleteButton.setOnAction(this::deleteItem);
         editButton.setOnAction(this::editItem);
 
-        entityTable.setItems(CsvFile.getInstance().entities);
+        CsvFile csv = CsvFile.getInstance();
+        entityTable.setItems(csv.entities);
+
+        csv.addChangeListener(entities -> {
+            entityTable.refresh();
+            manageVisibility();
+        });
     }
 }
