@@ -1,5 +1,7 @@
 package jfk_MAK.Controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -36,17 +38,22 @@ public class TableTabController implements Initializable{
 
     @FXML private Button loadButton;
     @FXML private Button deleteButton;
+    @FXML private Button editButton;
 
     private void loadCsv(ActionEvent event){
         FileDialog dialog = new FileDialog((Frame)null, "Select a File to Open");
         dialog.setMode(FileDialog.LOAD);
         dialog.setVisible(true);
         String path = dialog.getDirectory() + dialog.getFile();
-        CsvFile.getInstance().load(path);
-        dialog.dispose();
 
+        dialog.dispose();
+        CsvFile.getInstance().entities.clear();
         entityTable.getItems().clear();
+
+        CsvFile.getInstance().load(path);
         entityTable.setItems(CsvFile.getInstance().entities);
+        entityTable.refresh();
+
         manageVisibility();
     }
 
@@ -59,11 +66,13 @@ public class TableTabController implements Initializable{
     private void manageVisibility(){
         if(CsvFile.getInstance().entities.isEmpty()){
             deleteButton.setDisable(true);
-            deleteButton.setVisible(false);
         } else {
             deleteButton.setDisable(false);
-            deleteButton.setVisible(true);
         }
+    }
+
+    private void editItem(ActionEvent actionEvent){
+
     }
 
     @Override
@@ -76,7 +85,11 @@ public class TableTabController implements Initializable{
         salaryColumn.setCellValueFactory(new PropertyValueFactory<Entity, Integer>("monthSalary"));
         childrenColumn.setCellValueFactory(new PropertyValueFactory<Entity, Integer>("numOfChildren"));
 
+
         loadButton.setOnAction(this::loadCsv);
         deleteButton.setOnAction(this::deleteItem);
+        editButton.setOnAction(this::editItem);
+
+        entityTable.setItems(CsvFile.getInstance().entities);
     }
 }
