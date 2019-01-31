@@ -2,12 +2,16 @@ package jfk_MAK.Controller;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import jfk_MAK.Model.Engine.JythonEngine;
 
-public class JytonTabController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class JytonTabController implements Initializable {
 
     @FXML private TextArea inputArea;
 
@@ -19,10 +23,10 @@ public class JytonTabController {
 
     JythonEngine jythonEngine;
 
-    public JytonTabController() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        runButton.setOnMouseClicked(mouseEvent -> {
 
-        /*runButton.setOnMouseClicked(mouseEvent -> {
-
-        });*/
+        });
     }
 }

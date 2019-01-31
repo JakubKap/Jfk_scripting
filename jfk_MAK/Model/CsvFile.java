@@ -1,5 +1,9 @@
 package jfk_MAK.Model;
 
+import com.sun.istack.internal.NotNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,10 +12,26 @@ import java.util.List;
 
 public class CsvFile {
 
-    public CsvFile() {
+    private static CsvFile instance;
+
+    public ObservableList<Entity> entities;
+
+    public static CsvFile getInstance(){
+        if(null==instance){
+            instance= new CsvFile();
+        }
+        return instance;
     }
 
-    public List<Entity> readFromCsvFile(String fileLocation){
+    private CsvFile(){
+        entities = FXCollections.observableArrayList();
+    }
+
+    public void load(String dir){
+        entities.addAll(readFromCsvFile(dir));
+    }
+
+    private List<Entity> readFromCsvFile(String fileLocation){
         List<Entity> entities = new ArrayList<>();
         BufferedReader br = null;
         final String COMMA_DELIMITER= ",";
@@ -57,4 +77,5 @@ public class CsvFile {
         }
         return entities;
     }
+
 }

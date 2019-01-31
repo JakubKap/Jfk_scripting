@@ -9,8 +9,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -30,24 +34,36 @@ public class TableTabController implements Initializable{
     @FXML private TableColumn<Entity, Integer> salaryColumn;
     @FXML private TableColumn<Entity, Integer> childrenColumn;
 
-    public void loadButtonClicked(ActionEvent event){
-        FileDialog dialog = new FileDialog((Frame)null, "Select File to Open");
+    @FXML private Button loadButton;
+    @FXML private Button deleteButton;
+
+    private void loadCsv(ActionEvent event){
+        FileDialog dialog = new FileDialog((Frame)null, "Select a File to Open");
         dialog.setMode(FileDialog.LOAD);
         dialog.setVisible(true);
         String path = dialog.getDirectory() + dialog.getFile();
-        System.out.println(path+ " chosen.");
+        CsvFile.getInstance().load(path);
+        dialog.dispose();
 
         entityTable.getItems().clear();
-        entityTable.setItems(getInitialTableData(path));
+        entityTable.setItems(CsvFile.getInstance().entities);
+        manageVisibility();
     }
 
-    private ObservableList<Entity> getInitialTableData(String path) {
+    private void deleteItem(ActionEvent actionEvent){
+        int index = entityTable.getSelectionModel().getSelectedIndex();
+        CsvFile.getInstance().entities.remove(index);
+        manageVisibility();
+    }
 
-        ObservableList<Entity> observableEntities = FXCollections.observableArrayList();
-        List<Entity> entities = new CsvFile().readFromCsvFile(path);
-        observableEntities.addAll(entities);
-
-        return FXCollections.observableArrayList(entities);
+    private void manageVisibility(){
+        if(CsvFile.getInstance().entities.isEmpty()){
+            deleteButton.setDisable(true);
+            deleteButton.setVisible(false);
+        } else {
+            deleteButton.setDisable(false);
+            deleteButton.setVisible(true);
+        }
     }
 
     @Override
@@ -59,7 +75,8 @@ public class TableTabController implements Initializable{
         marriedColumn.setCellValueFactory(new PropertyValueFactory<Entity, Boolean>("married"));
         salaryColumn.setCellValueFactory(new PropertyValueFactory<Entity, Integer>("monthSalary"));
         childrenColumn.setCellValueFactory(new PropertyValueFactory<Entity, Integer>("numOfChildren"));
+
+        loadButton.setOnAction(this::loadCsv);
+        deleteButton.setOnAction(this::deleteItem);
     }
-
-
 }
