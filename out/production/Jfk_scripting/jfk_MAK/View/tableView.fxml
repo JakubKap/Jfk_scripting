@@ -34,16 +34,16 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Button fx:id="loadButton" mnemonicParsing="false" text="Load" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-        <TableView fx:id="entityTable" prefHeight="399.0" prefWidth="545.0" GridPane.columnIndex="3" GridPane.columnSpan="7" GridPane.rowIndex="1" GridPane.rowSpan="7">
+        <Button fx:id="loadButton" mnemonicParsing="false" onAction="#loadButtonClicked" text="Load" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+        <TableView fx:id="entityTable" prefHeight="399.0" prefWidth="545.0" GridPane.columnIndex="2" GridPane.columnSpan="7" GridPane.rowIndex="1" GridPane.rowSpan="7">
             <columns>
-                <TableColumn prefWidth="75.0" text="Name" />
-                <TableColumn prefWidth="75.0" text="Surname" />
-                <TableColumn prefWidth="75.0" text="Age" />
-                <TableColumn prefWidth="75.0" text="Employed" />
-                <TableColumn prefWidth="75.0" text="Married" />
-                <TableColumn prefWidth="93.0" text="Monthly Salary" />
-                <TableColumn prefWidth="91.0" text="Number Of Children" />
+                <TableColumn fx:id="nameColumn" prefWidth="75.0" text="name" />
+                <TableColumn fx:id="surnameColumn" prefWidth="75.0" text="surname" />
+                <TableColumn fx:id="ageColumn" prefWidth="75.0" text="age" />
+                <TableColumn fx:id="employedColumn" prefWidth="75.0" text="isEmployed" />
+                <TableColumn fx:id="marriedColumn" prefWidth="75.0" text="isMarried" />
+                <TableColumn fx:id = "salaryColumn" prefWidth="93.0" text="monthSalary" />
+                <TableColumn fx:id="childrenColumn" prefWidth="91.0" text="numOfChildren" />
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Jfk_scripting.iml" filepath="$PROJECT_DIR$/.idea/Jfk_scripting.iml" />
+      <module fileurl="file://$USER_HOME$/Downloads/jython2.7.0/jython.iml" filepath="$USER_HOME$/Downloads/jython2.7.0/jython.iml" />
     </modules>
   </component>
 </project>
