@@ -21,8 +21,8 @@ public class JytonTabController {
 
     public JytonTabController() {
 
-        runButton.setOnMouseClicked(mouseEvent -> {
+        /*runButton.setOnMouseClicked(mouseEvent -> {
 
-        });
+        });*/
     }
 }
