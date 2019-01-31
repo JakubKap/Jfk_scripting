@@ -5,10 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import jfk_MAK.Model.Entity;
-import jfk_MAK.Model.CsvFile;
-
-import java.util.List;
 
 public class Main extends Application {
 
