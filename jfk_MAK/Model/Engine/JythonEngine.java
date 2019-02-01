@@ -1,6 +1,7 @@
 package jfk_MAK.Model.Engine;
 
 import jfk_MAK.Model.Entity;
+import org.python.core.PyException;
 import org.python.core.PySyntaxError;
 import org.python.util.PythonInterpreter;
 
@@ -20,7 +21,7 @@ public class JythonEngine {
 
         try {
             pythonInterpreter.exec(script);
-        } catch(PySyntaxError e) {
+        } catch(PyException e) {
             return e.toString();
         }
         return null;

@@ -24,6 +24,8 @@ public class Nashorn {
             engine.eval(script);
         } catch(ScriptException e) {
             return e.getMessage();
+        } catch(IndexOutOfBoundsException e) {
+            return "Runtime Error: Accessing java array out of its bounds";
         }
 
         return null;
