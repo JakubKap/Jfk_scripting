@@ -39,13 +39,9 @@ public class TableTabController implements Initializable{
     @FXML private Button deleteButton;
     @FXML private Button editButton;
 
-    private Entity chosenEntity;
-    private int entityIndex;
+    private static int entityIndex;
 
-    public Entity getChosenEntity(){
-        return chosenEntity;
-    }
-    public int getEntityIndex(){
+    public static int getEntityIndex(){
         return entityIndex;
     }
 
@@ -73,14 +69,12 @@ public class TableTabController implements Initializable{
     }
 
     private void editItem(ActionEvent actionEvent){
-        chosenEntity=entityTable.getSelectionModel().getSelectedItem();
         entityIndex=entityTable.getSelectionModel().getSelectedIndex();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getClassLoader().getResource("jfk_MAK/View/editItemView.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 600, 400);
             Stage stage = new Stage();
-            stage.setTitle("Editing "+chosenEntity.getName()+" "+chosenEntity.getSurname());
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
