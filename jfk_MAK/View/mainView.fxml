@@ -3,27 +3,26 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 
-
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" >
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
     <Tab text="View">
          <content>
-             <fx:include fx:id="tableTab" source="tableView.fxml"/>
+             <fx:include fx:id="tableTab" source="tableView.fxml" />
          </content>
     </Tab>
     <Tab text="Manual">
          <content>
-             <fx:include fx:id="manualTab" source="manualView.fxml"/>
+             <fx:include fx:id="manualTab" source="manualView.fxml" />
          </content>
     </Tab>
       <Tab text="Nashorn">
          <content>
-             <fx:include fx:id="nashornTab" source="nashornView.fxml"/>
+             <fx:include fx:id="nashornTab" source="nashornView.fxml" />
          </content>
       </Tab>
-      <Tab text="Jyton">
+      <Tab text="Jython">
          <content>
-             <fx:include fx:id="jytonTab" source="jytonView.fxml"/>
+             <fx:include fx:id="jytonTab" source="jytonView.fxml" />
          </content>
       </Tab>
   </tabs>
