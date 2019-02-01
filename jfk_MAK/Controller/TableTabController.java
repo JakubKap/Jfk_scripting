@@ -7,10 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import jfk_MAK.Model.CsvFile;
 import jfk_MAK.Model.Entity;
 import javafx.stage.Stage;
@@ -54,7 +58,15 @@ public class TableTabController implements Initializable{
         fileChooser.setTitle("Select a file to open");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
         File file = fileChooser.showOpenDialog(((Node)event.getSource()).getScene().getWindow());
-        CsvFile.getInstance().load(file.getPath());
+        try {
+            CsvFile.getInstance().load(file.getPath());
+        }catch(NullPointerException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Wybierz plik csv.");
+            alert.setHeaderText("Wybierz plik csv z dowolnej lokalizacji.");
+
+            alert.showAndWait();
+        }
     }
 
     private void deleteItem(ActionEvent actionEvent){
@@ -85,11 +97,12 @@ public class TableTabController implements Initializable{
         }
 }
 
-    public void enableModifyBtns(){
+    private void enableModifyBtns(){
         editButton.setDisable(false);
         deleteButton.setDisable(false);
     }
-    public void disableModifyBtns(){
+
+    private void disableModifyBtns(){
         editButton.setDisable(true);
         deleteButton.setDisable(true);
     }
