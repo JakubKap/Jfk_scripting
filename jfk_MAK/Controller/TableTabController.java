@@ -59,6 +59,12 @@ public class TableTabController implements Initializable{
     private void loadCsv(ActionEvent event){
         disableModifyBtns();
         FileChooser fileChooser = new FileChooser();
+        try {
+            File file = new File(new File(".").getCanonicalPath());
+            fileChooser.setInitialDirectory(file);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
         fileChooser.setTitle("Select a file to open");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
         File file = fileChooser.showOpenDialog(((Node)event.getSource()).getScene().getWindow());
