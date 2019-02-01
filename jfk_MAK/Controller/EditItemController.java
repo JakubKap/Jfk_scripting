@@ -36,9 +36,13 @@ public class EditItemController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("jfk_MAK/View/tableTabView.fxml"));
         TableTabController tableTab = loader.getController();
-        //chosenEntity = tableTab.getChosenEntity();
-        //entityIndex = tableTab.getEntityIndex();
-        //fillFields();
+        entityIndex = TableTabController.getEntityIndex();
+        System.out.println(entityIndex);
+
+        chosenEntity = CsvFile.getInstance().entities.get(entityIndex);
+        System.out.println(chosenEntity.toString());
+
+        fillFields();
         submitButton.setOnAction(this::submit);
         ageSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -57,6 +61,7 @@ public class EditItemController implements Initializable {
     private void fillFields(){
         nameTextfield.setText(chosenEntity.getName());
         surnameTextfield.setText(chosenEntity.getSurname());
+        ageLabel.setText("Age: " + Integer.toString(chosenEntity.getAge()));
         ageSlider.setValue(chosenEntity.getAge());
         isEmployedCheckbox.setSelected(chosenEntity.isEmployed());
         isMarriedCheckbox.setSelected(chosenEntity.isMarried());
