@@ -1,6 +1,7 @@
 package jfk_MAK.Controller;
 
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import jfk_MAK.Model.CsvFile;
 import jfk_MAK.Model.Entity;
@@ -62,14 +64,13 @@ public class TableTabController implements Initializable{
         if(CsvFile.getInstance().entities.isEmpty()){
             deleteButton.setDisable(true);
             editButton.setDisable(true);
-        } else {
+        } else
             deleteButton.setDisable(false);
-            editButton.setDisable(false);
-        }
     }
 
+
     private void editItem(ActionEvent actionEvent){
-        entityIndex=entityTable.getSelectionModel().getSelectedIndex();
+        entityIndex = entityTable.getSelectionModel().getSelectedIndex();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getClassLoader().getResource("jfk_MAK/View/editItemView.fxml"));
@@ -104,5 +105,16 @@ public class TableTabController implements Initializable{
             entityTable.refresh();
             manageVisibility();
         });
+
+        entityTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println(entityTable.getSelectionModel().getSelectedIndex() + " | " + CsvFile.getInstance().entities.size());
+                if(!CsvFile.getInstance().entities.isEmpty()
+                        && entityTable.getSelectionModel().getSelectedIndex() >= 0)
+                editButton.setDisable(false);
+            }
+        });
+
     }
 }
