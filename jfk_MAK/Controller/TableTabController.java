@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import jfk_MAK.Model.CsvFile;
 import jfk_MAK.Model.Entity;
 import javafx.stage.Stage;
@@ -48,6 +49,7 @@ public class TableTabController implements Initializable{
     }
 
     private void loadCsv(ActionEvent event){
+        disableModifyBtns();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select a file to open");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
@@ -64,8 +66,7 @@ public class TableTabController implements Initializable{
         if(CsvFile.getInstance().entities.isEmpty()){
             deleteButton.setDisable(true);
             editButton.setDisable(true);
-        } else
-            deleteButton.setDisable(false);
+        }
     }
 
 
@@ -83,6 +84,15 @@ public class TableTabController implements Initializable{
             logger.log(Level.SEVERE, "Failed to create new Window.", e);
         }
 }
+
+    public void enableModifyBtns(){
+        editButton.setDisable(false);
+        deleteButton.setDisable(false);
+    }
+    public void disableModifyBtns(){
+        editButton.setDisable(true);
+        deleteButton.setDisable(true);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -112,7 +122,7 @@ public class TableTabController implements Initializable{
                 System.out.println(entityTable.getSelectionModel().getSelectedIndex() + " | " + CsvFile.getInstance().entities.size());
                 if(!CsvFile.getInstance().entities.isEmpty()
                         && entityTable.getSelectionModel().getSelectedIndex() >= 0)
-                editButton.setDisable(false);
+                    enableModifyBtns();
             }
         });
 

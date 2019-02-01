@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import jfk_MAK.Model.CsvFile;
 import jfk_MAK.Model.Entity;
 
@@ -55,6 +56,8 @@ public class EditItemController implements Initializable {
     private void submit(ActionEvent actionEvent){
         if(getFieldsStatus()){
             passEntity();
+            Stage stage = (Stage) submitButton.getScene().getWindow();
+            stage.close();
         }
     }
 
