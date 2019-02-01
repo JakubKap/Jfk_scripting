@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import jfk_MAK.Model.CsvFile;
 import jfk_MAK.Model.Entity;
 
@@ -55,6 +56,8 @@ public class EditItemController implements Initializable {
     private void submit(ActionEvent actionEvent){
         if(getFieldsStatus()){
             passEntity();
+            Stage stage = (Stage) submitButton.getScene().getWindow();
+            stage.close();
         }
     }
 
@@ -78,13 +81,13 @@ public class EditItemController implements Initializable {
                 isMarriedCheckbox.isSelected(),
                 Integer.parseInt(monthSalaryTextfield.getText()),
                 Integer.parseInt(numberOfChildrenTextfield.getText())));
-        resultLabel.setStyle("-fx-text-fill: 66ff66;");
+        resultLabel.setStyle("-fx-text-fill: #66ff66; ");
         resultLabel.setText("Submission successful!");
     }
 
     private boolean getFieldsStatus(){
         boolean status = true;
-        resultLabel.setStyle("-fx-text-fill: ff0000; ");
+        resultLabel.setStyle("-fx-text-fill: #ff0000; ");
         if(!nameTextfield.getText().matches("[A-z]+")){
             resultLabel.setText("Name must be a single word!");
             status=false;

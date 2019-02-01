@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import jfk_MAK.Model.CsvFile;
 import jfk_MAK.Model.Entity;
 
 import java.net.URL;
@@ -54,13 +55,26 @@ public class ManualTabController implements Initializable {
                 Integer.parseInt(numberOfChildrenTextfield.getText())
         );
 
-        resultLabel.setStyle("-fx-text-fill: 000000;");
+        resultLabel.setStyle("-fx-text-fill: #66ff66;;");
         resultLabel.setText("Submission successful!");
+        clearFields();
+        CsvFile.getInstance().entities.add(entity);
+
+    }
+
+    private void clearFields(){
+        nameTextfield.setText("");
+        surnameTextfield.setText("");
+        ageSlider.setValue(18);
+        isEmployedCheckbox.setSelected(false);
+        isMarriedCheckbox.setSelected(false);
+        monthSalaryTextfield.setText("");
+        numberOfChildrenTextfield.setText("");
     }
 
     private boolean getFieldsStatus(){
         boolean status = true;
-        resultLabel.setStyle("-fx-text-fill: ff0000; ");
+        resultLabel.setStyle("-fx-text-fill: #ff0000; ");
         if(!nameTextfield.getText().matches("[A-z]+")){
             resultLabel.setText("Name must be a single word!");
             status=false;

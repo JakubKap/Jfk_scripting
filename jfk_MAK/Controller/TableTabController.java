@@ -19,7 +19,9 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import jfk_MAK.Model.CsvFile;
 import jfk_MAK.Model.Entity;
 import javafx.stage.Stage;
@@ -34,6 +36,8 @@ public class TableTabController implements Initializable{
     @FXML private TableColumn<Entity, Boolean> marriedColumn;
     @FXML private TableColumn<Entity, Integer> salaryColumn;
     @FXML private TableColumn<Entity, Integer> childrenColumn;
+
+    @FXML private GridPane tableGridPane;
 
     @FXML private Button loadButton;
     @FXML private Button deleteButton;
@@ -75,6 +79,8 @@ public class TableTabController implements Initializable{
             fxmlLoader.setLocation(getClass().getClassLoader().getResource("jfk_MAK/View/editItemView.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 600, 400);
             Stage stage = new Stage();
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(tableGridPane.getScene().getWindow());
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
